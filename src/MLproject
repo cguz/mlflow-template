@@ -1,0 +1,32 @@
+name: mlpipeline
+
+conda_env: conda.yaml
+
+entry_points:
+   create_dataset: 
+     command: "python create_dataset.py"
+   
+   build_model: 
+     parameters:
+       data_path: {type: str, default: "temp"}
+     command: "python build_model.py --data-path {data_path}"
+
+   train_model: 
+     parameters:
+       model_path: path
+     command: "python train_model.py --model-path {model_path}"
+   
+   evaluate: 
+     parameters:
+       model_trained_path: path
+     command: "python evaluate.py --model-trained-path {model_trained_path}"
+   
+   deploy: 
+     parameters:
+       result_path: path
+     command: "python deploy.py --result-path {result_path}"
+
+   main:
+     parameters:
+       input1: {type: int, default: 100}
+     command: "python main.py"
